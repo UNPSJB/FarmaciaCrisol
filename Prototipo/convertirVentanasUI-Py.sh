@@ -1,4 +1,4 @@
-cd ~/Documentos/prototipos
+cd ~/Documentos/FarmaciaCrisol/Prototipo
 pyuic4 -x altaCliente.ui -o altaCliente.py
 pyuic4 -x ajusteNegativoStock.ui -o ajusteNegativoStock.py
 pyuic4 -x altaMedicamento.ui -o altaMedicamento.py

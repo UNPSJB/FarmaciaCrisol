@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ventaContado.ui'
 #
-# Created: Wed Sep 24 13:59:40 2014
+# Created: Fri Sep 26 11:13:15 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,7 +26,7 @@ except AttributeError:
 class Ui_vtnVentaContado(object):
     def setupUi(self, vtnVentaContado):
         vtnVentaContado.setObjectName(_fromUtf8("vtnVentaContado"))
-        vtnVentaContado.resize(808, 678)
+        vtnVentaContado.resize(828, 678)
         self.verticalLayout = QtGui.QVBoxLayout(vtnVentaContado)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
         self.gridLayout = QtGui.QGridLayout()
@@ -195,14 +195,14 @@ class Ui_vtnVentaContado(object):
         item = self.tableWidget_3.horizontalHeaderItem(2)
         item.setText(_translate("vtnVentaContado", "Importe", None))
         self.label_7.setText(_translate("vtnVentaContado", "Cantidad", None))
-        self.label_3.setText(_translate("vtnVentaContado", "CUIT", None))
+        self.label_3.setText(_translate("vtnVentaContado", "* CUIT", None))
         item = self.tableWidget.horizontalHeaderItem(0)
         item.setText(_translate("vtnVentaContado", "Razón Social", None))
         item = self.tableWidget.horizontalHeaderItem(1)
         item.setText(_translate("vtnVentaContado", "CUIT", None))
         item = self.tableWidget.horizontalHeaderItem(2)
         item.setText(_translate("vtnVentaContado", "Dirección", None))
-        self.label_2.setText(_translate("vtnVentaContado", "Razón Social", None))
+        self.label_2.setText(_translate("vtnVentaContado", "* Razón Social", None))
         self.label_11.setText(_translate("vtnVentaContado", "Nombre", None))
         self.pushButton.setText(_translate("vtnVentaContado", "Buscar", None))
         self.pushButton_3.setText(_translate("vtnVentaContado", "Sin Descuento", None))

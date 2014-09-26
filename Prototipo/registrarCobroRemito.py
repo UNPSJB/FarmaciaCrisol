@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'registrarCobroRemito.ui'
 #
-# Created: Wed Sep 24 13:59:39 2014
+# Created: Fri Sep 26 11:13:15 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -145,12 +145,12 @@ class Ui_vtnRegistrarCobroRemito(object):
     def retranslateUi(self, vtnRegistrarCobroRemito):
         vtnRegistrarCobroRemito.setWindowTitle(_translate("vtnRegistrarCobroRemito", "Registrar Cobro Remito", None))
         self.label_9.setText(_translate("vtnRegistrarCobroRemito", "Efectivo Entrgado", None))
-        self.label_2.setText(_translate("vtnRegistrarCobroRemito", "CUIT", None))
+        self.label_2.setText(_translate("vtnRegistrarCobroRemito", "* CUIT", None))
         self.pushButton_4.setText(_translate("vtnRegistrarCobroRemito", "Calcular Vuelto", None))
         self.pushButton.setText(_translate("vtnRegistrarCobroRemito", "Buscar", None))
         self.pushButton_3.setText(_translate("vtnRegistrarCobroRemito", "Agregar", None))
         self.label_4.setText(_translate("vtnRegistrarCobroRemito", "Remito", None))
-        self.label_3.setText(_translate("vtnRegistrarCobroRemito", "Razón Social", None))
+        self.label_3.setText(_translate("vtnRegistrarCobroRemito", "* Razón Social", None))
         self.label_8.setText(_translate("vtnRegistrarCobroRemito", "$0.00", None))
         item = self.tableWidget_3.horizontalHeaderItem(0)
         item.setText(_translate("vtnRegistrarCobroRemito", "Código", None))

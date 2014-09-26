@@ -39,7 +39,7 @@
      <item row="3" column="0" alignment="Qt::AlignTop">
       <widget class="QLabel" name="label_2">
        <property name="text">
-        <string>Descripción</string>
+        <string>* Descripción</string>
        </property>
       </widget>
      </item>

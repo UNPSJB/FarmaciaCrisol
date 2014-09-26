@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'modificarCliente.ui'
 #
-# Created: Wed Sep 24 13:59:39 2014
+# Created: Fri Sep 26 11:13:14 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -76,8 +76,8 @@ class Ui_vtnModificarCliente(object):
         vtnModificarCliente.setWindowTitle(_translate("vtnModificarCliente", "Modificar Cliente", None))
         self.label.setText(_translate("vtnModificarCliente", "Nombre y Apellido", None))
         self.label_2.setText(_translate("vtnModificarCliente", "DNI", None))
-        self.label_4.setText(_translate("vtnModificarCliente", "Teléfono", None))
-        self.label_3.setText(_translate("vtnModificarCliente", "Dirección", None))
+        self.label_4.setText(_translate("vtnModificarCliente", "* Teléfono", None))
+        self.label_3.setText(_translate("vtnModificarCliente", "* Dirección", None))
         self.pushButton.setText(_translate("vtnModificarCliente", "Buscar", None))
 
 

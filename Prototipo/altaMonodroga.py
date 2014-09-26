@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'altaMonodroga.ui'
 #
-# Created: Wed Sep 24 13:59:38 2014
+# Created: Fri Sep 26 11:13:13 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -66,7 +66,7 @@ class Ui_vtnAltaMonodroga(object):
         vtnAltaMonodroga.setWindowTitle(_translate("vtnAltaMonodroga", "Alta Monodroga", None))
         self.label.setText(_translate("vtnAltaMonodroga", "Nombre", None))
         self.checkBox.setText(_translate("vtnAltaMonodroga", "Receta Archivada?", None))
-        self.label_2.setText(_translate("vtnAltaMonodroga", "Descripción", None))
+        self.label_2.setText(_translate("vtnAltaMonodroga", "* Descripción", None))
         self.checkBox_2.setText(_translate("vtnAltaMonodroga", "Receta?", None))
 
 

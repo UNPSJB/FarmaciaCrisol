@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>808</width>
+    <width>828</width>
     <height>678</height>
    </rect>
   </property>
@@ -155,7 +155,7 @@
      <item row="2" column="1">
       <widget class="QLabel" name="label_3">
        <property name="text">
-        <string>CUIT</string>
+        <string>* CUIT</string>
        </property>
       </widget>
      </item>
@@ -187,7 +187,7 @@
      <item row="1" column="1">
       <widget class="QLabel" name="label_2">
        <property name="text">
-        <string>Razón Social</string>
+        <string>* Razón Social</string>
        </property>
       </widget>
      </item>

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'altaCliente.ui'
 #
-# Created: Wed Sep 24 13:59:38 2014
+# Created: Fri Sep 26 11:13:13 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -71,7 +71,7 @@ class Ui_vtnAltaCliente(object):
     def retranslateUi(self, vtnAltaCliente):
         vtnAltaCliente.setWindowTitle(_translate("vtnAltaCliente", "Alta Cliente", None))
         self.label.setText(_translate("vtnAltaCliente", "Nombre y Apellido", None))
-        self.label_4.setText(_translate("vtnAltaCliente", "Teléfono", None))
+        self.label_4.setText(_translate("vtnAltaCliente", "* Teléfono", None))
         self.label_3.setText(_translate("vtnAltaCliente", "Dirección", None))
         self.label_2.setText(_translate("vtnAltaCliente", "DNI", None))
 
