@@ -1,0 +1,31 @@
+cd ~/PycharmProjects/Desarrollo
+pyuic4 -x altaCliente.ui -o altaCliente.py
+pyuic4 -x ajusteNegativoStock.ui -o ajusteNegativoStock.py
+pyuic4 -x altaMedicamento.ui -o altaMedicamento.py
+pyuic4 -x altaMonodroga.ui -o altaMonodroga.py
+pyuic4 -x altaPresentacion.ui -o altaPresentacion.py
+pyuic4 -x altaProducto.ui -o altaProducto.py
+pyuic4 -x bajaCliente.ui -o bajaCliente.py
+pyuic4 -x bajaLote.ui -o bajaLote.py
+pyuic4 -x bajaRemito.ui -o bajaRemito.py
+pyuic4 -x bajaPresentacion.ui -o bajaPresentacion.py
+pyuic4 -x bajaProducto.ui -o bajaProducto.py
+pyuic4 -x bajaMedicamento.ui -o bajaMedicamento.py
+pyuic4 -x bajaMonodroga.ui -o bajaMonodroga.py
+pyuic4 -x devolucionDeCliente.ui -o devolucionDeCliente.py
+pyuic4 -x fraccionarProducto.ui -o fraccionarProducto.py
+pyuic4 -x ingresar.ui -o ingresar.py
+pyuic4 -x listar.ui -o listar.py
+pyuic4 -x modificarCliente.ui -o modificarCliente.py
+pyuic4 -x modificarLote.ui -o modificarLote.py
+pyuic4 -x modificarMedicamento.ui -o modificarMedicamento.py
+pyuic4 -x modificarMonodroga.ui -o modificarMonodroga.py
+pyuic4 -x modificarProducto.ui -o modificarProducto.py
+pyuic4 -x modificarPresentacion.ui -o modificarPresentacion.py
+pyuic4 -x modificarRemito.ui -o modificarRemito.py
+pyuic4 -x registrarCobroRemito.ui -o registrarCobroRemito.py
+pyuic4 -x reintegroCliente.ui -o reintegroCliente.py
+pyuic4 -x ventanaPrincipal.ui -o ventanaPrincipal.py
+pyuic4 -x ventaContado.ui -o ventaContado.py
+pyuic4 -x ventaConRemito.ui -o ventaConRemito.py
+
