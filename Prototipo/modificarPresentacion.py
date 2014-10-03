@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'modificarPresentacion.ui'
 #
-# Created: Fri Sep 26 11:13:15 2014
+# Created: Wed Oct  1 13:55:07 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
