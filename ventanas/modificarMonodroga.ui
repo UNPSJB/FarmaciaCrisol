@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>vtnModificarMonodroga</class>
+ <widget class="QWidget" name="vtnModificarMonodroga">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>659</width>
+    <height>396</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Modificar Monodroga</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="3" column="0" alignment="Qt::AlignTop">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>* Descripción</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Nombre</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QTextEdit" name="txtDescripcion">
+       <property name="statusTip">
+        <string>Ingrese la descripción de la monodroga</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2" alignment="Qt::AlignLeft">
+      <widget class="QPushButton" name="btnBuscar">
+       <property name="text">
+        <string>Buscar</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="lineNomb">
+       <property name="statusTip">
+        <string>Ingrese nombre de la monodroga (solo letras)</string>
+       </property>
+       <property name="accessibleDescription">
+        <string>palabra</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>* Tipo de Venta</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1" alignment="Qt::AlignLeft">
+      <widget class="QComboBox" name="cmbTipoVenta">
+       <property name="statusTip">
+        <string>Seleccione el tipo de venta que exige la monodroga</string>
+       </property>
+       <item>
+        <property name="text">
+         <string>Libre</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Receta</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Receta Archivada</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="4" column="1" colspan="2">
+      <widget class="QDialogButtonBox" name="buttonBox">
+       <property name="standardButtons">
+        <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0" colspan="3">
+      <widget class="QTableWidget" name="tablaMonodroga">
+       <property name="editTriggers">
+        <set>QAbstractItemView::NoEditTriggers</set>
+       </property>
+       <attribute name="horizontalHeaderDefaultSectionSize">
+        <number>130</number>
+       </attribute>
+       <attribute name="horizontalHeaderStretchLastSection">
+        <bool>true</bool>
+       </attribute>
+       <attribute name="verticalHeaderVisible">
+        <bool>true</bool>
+       </attribute>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>lineNomb</tabstop>
+  <tabstop>btnBuscar</tabstop>
+  <tabstop>tablaMonodroga</tabstop>
+  <tabstop>cmbTipoVenta</tabstop>
+  <tabstop>txtDescripcion</tabstop>
+  <tabstop>buttonBox</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>
