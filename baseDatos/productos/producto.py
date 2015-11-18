@@ -304,40 +304,20 @@ class Producto(ObjetoBase):
                  cls.id_presentacion)\
         .order_by(lote.id_producto)
 
+	def buscarLotes(self,sesion):
+		"""
+			Busca los lotes y sus cantidades para un producto
+			:param Sesion
+			:return Arreglo con los lotes y cantidades correspondiente a un producto
+		"""
+		lotes={}
+		query = sesion.query(LoteProducto).filter(LoteProducto.id_producto==self.codigo_barra)
+		for elemento in query:
+			lotes[elemento.id_lote]=elemento.cantidad
+		return lotes
+
     #Todo leandro lo creo
     def getNombreMonodroga(self,sesion):
         instance=sesion.query(Medicamento.id_monodroga).\
             filter(Medicamento.nombre_comercial == self.id_medicamento)
         return (instance.first().id_monodroga)
-
-    # def __init__(self, codigo, importe, cantidad, presentacion, lote, medicamento):
-    #     self.codigo = codigo
-    #     self.importe = importe
-    #     self.cantidad = cantidad
-    #     self.presentacion = presentacion
-    #     self.lote = lote
-    #     self.medicamento = medicamento
-    #     productos.append(self)
-
-    # def vender(self, cantidad):
-    #     while self.cantidad < cantidad:
-    #         prod = self.obtener_super_producto()
-    #         prod.fraccionar(self)
-    #     self.cantidad -= cantidad
-    #
-    # def obtener_super_producto(self):
-    #     sp = self.presentacion.super_presentacion
-    #     prods = [ p for p in productos if p.presentacion == sp and p.medicamento == self.medicamento ]
-    #     if prods:
-    #         return prods[0]
-    #     raise Exception("no puedo mas")
-    #
-    # def fraccionar(self, producto):
-    #     while self.cantidad == 0:
-    #         prod = self.obtener_super_producto()
-    #         prod.fraccionar(self)
-    #     self.cantidad -= 1
-    #     producto.cantidad += self.presentacion.cantidad
-    #
-    # def __str__(self):
-    #     return "%s - %s (%d)" % (self.medicamento, self.presentacion, self.cantidad)

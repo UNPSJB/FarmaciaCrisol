@@ -3,11 +3,17 @@ __author__ = 'waldo'
 from ventanas import Ui_vtnListar
 from gui import MdiWidget
 from baseDatos import Cliente, LoteProducto, Producto, Factura, Remito
+from baseDatos import Producto as ProductoModel
+from baseDatos import Factura as FacturaModel
+from baseDatos import Remito as RemitoModel
+from baseDatos import Cliente as ClienteModel
 import pdfkit
 import os
 import pycha.bar
 import cairo
 import pycha.line
+import xlsxwriter
+from PyQt4 import QtGui
 
 class Listar(MdiWidget, Ui_vtnListar):
     """
@@ -32,35 +38,44 @@ class Listar(MdiWidget, Ui_vtnListar):
         if (self.listado=="Facturas Liquidadas Pendientes de Cobro"):
             pass
         elif (self.listado=="Productos en Stock"):
-            lote_producto = LoteProducto.buscarTodos("id_lote", self.sesion).all()
-            f = open('reportes/listadoProductosStock.html','w')
-            data = self.productosStock(lote_producto)
-            self.diagramaBarras(data)
-            message = self.htmlProductosStock(lote_producto)
-            f.write(message)
-            f.close()
-            pdfkit.from_file('reportes/listadoProductosStock.html', 'reportes/list.pdf')
-            os.system('evince reportes/list.pdf &')
+			if self.rbtnExcel.isChecked():
+				self.generarExcelProductos()	
+			else:
+				lote_producto = LoteProducto.buscarTodos("id_lote", self.sesion).all()
+				f = open('reportes/listadoProductosStock.html','w')
+				data = self.productosStock(lote_producto)
+				self.diagramaBarras(data)
+				message = self.htmlProductosStock(lote_producto)
+				f.write(message)
+				f.close()
+				pdfkit.from_file('reportes/listadoProductosStock.html', 'reportes/list.pdf')
+				os.system('evince reportes/list.pdf &')
         elif (self.listado=="Ventas Realizadas"):
-            facturas = Factura.buscarTodos(Factura.numero, self.sesion).all()
-            remitos = Remito.buscarTodos(Remito.numero, self.sesion).all()
-            data = self.cantidadVentas(facturas, remitos)
-            #self.diagramaLinea(data)
-            f = open('reportes/listadoVentas.html','w')
-            ventas = self.cantidadVentas(facturas, remitos)
-            message = self.htmlVentas(ventas)
-            f.write(message)
-            f.close()
-            pdfkit.from_file('reportes/listadoVentas.html', 'reportes/list.pdf')
-            os.system('evince reportes/list.pdf &')
+			if self.rbtnExcel.isChecked():
+				self.generarExcelVentas()
+			else:
+				facturas = Factura.buscarTodos(Factura.numero, self.sesion).all()
+				remitos = Remito.buscarTodos(Remito.numero, self.sesion).all()
+				data = self.cantidadVentas(facturas, remitos)
+				#self.diagramaLinea(data)
+				f = open('reportes/listadoVentas.html','w')
+				ventas = self.cantidadVentas(facturas, remitos)
+				message = self.htmlVentas(ventas)
+				f.write(message)
+				f.close()
+				pdfkit.from_file('reportes/listadoVentas.html', 'reportes/list.pdf')
+				os.system('evince reportes/list.pdf &')
         else:
-            clientes = Cliente.buscarTodos(Cliente.dni, self.sesion).all()
-            f = open('reportes/listadoClientes.html','w')
-            message = self.htmlCliente(clientes)
-            f.write(message)
-            f.close()
-            pdfkit.from_file('reportes/listadoClientes.html', 'reportes/list.pdf')
-            os.system('evince reportes/list.pdf &')
+			if self.rbtnExcel.isChecked():
+				self.generarExcelClientes()
+			else:
+				clientes = Cliente.buscarTodos(Cliente.dni, self.sesion).all()
+				f = open('reportes/listadoClientes.html','w')
+				message = self.htmlCliente(clientes)
+				f.write(message)
+				f.close()
+				pdfkit.from_file('reportes/listadoClientes.html', 'reportes/list.pdf')
+				os.system('evince reportes/list.pdf &')
 
     def htmlProductosStock(self, lote_producto):
         """
@@ -320,3 +335,166 @@ class Listar(MdiWidget, Ui_vtnListar):
         chart.render()
 
         surface.write_to_png('reportes/diagLinea.png')
+
+    def generarExcelProductos(self):
+        """
+            Crea el listado en Excel correspondiente al total de los
+            productos en stock en la farmacia
+        :return None:
+        """
+        data={}
+        lotesProductos={}
+        for producto in (ProductoModel.buscarTodos("codigo_barra",self.sesion).all()):
+            nombreProducto = '%(medicamento)s %(presentacion)s' % \
+                             {"medicamento":producto.id_medicamento,
+                              "presentacion":producto.id_presentacion}
+            data[nombreProducto.upper()]=producto.getCantidad(self.sesion)
+            lotesProductos[nombreProducto]=producto.buscarLotes(self.sesion)
+
+        documento=xlsxwriter.Workbook('Excel/StockProductos.xlsx')
+        hoja=documento.add_worksheet('General')
+        bold = documento.add_format({'bold': 1,})
+        bold.set_align('center')
+        hoja.set_column(0,0,45)
+        hoja.set_column(1,1,15)
+        ##Añado un grafico al documento
+        grafico = documento.add_chart({'type':'column'})
+        productos=list(data.keys())
+        cantidades=list(data.values())
+        hoja.write('A1','Producto',bold)
+        hoja.write('B1','Cantidad',bold)
+        hoja.write_column('A2',productos)
+        hoja.write_column('B2',cantidades)
+        grafico.add_series({
+                'categories':[hoja.name,1,0,len(productos),0],
+                'values': [hoja.name,1,1,len(cantidades),1]
+        })
+        grafico.set_x_axis({
+            'name':'Productos',
+            'name-font':{'size':16,'bold':True},
+            'num_font':{'italic':True},
+        })
+        hoja.insert_chart('E3', grafico)
+        for producto in lotesProductos:
+            self.generarHojaProducto(documento,producto,lotesProductos[producto])
+        documento.close()
+
+        QtGui.QMessageBox.information(self, "Listado" , "El listado ha sido generado con exito")
+
+    def generarHojaProducto(self,documento,producto,aLotes):
+        """
+            Crea un hoja correspondiente a cada producto, especificando sus
+            lotes y cantidades
+        :param: documento:
+        :param: producto:
+        :param: aLotes:
+        :return None:
+        """
+        hoja=documento.add_worksheet(producto.upper()[0:20])
+        bold = documento.add_format({'bold': 1,})
+        bold.set_align('center')
+        hoja.set_column(0,0,45)
+        hoja.set_column(1,1,15)
+        ##Añado un grafico al documento
+        grafico = documento.add_chart({'type':'column'})
+        lotes=list(aLotes.keys())
+        cantidades=list(aLotes.values())
+        hoja.write('A1','Lote',bold)
+        hoja.write('B1','Cantidad',bold)
+        hoja.write_column('A2',lotes)
+        hoja.write_column('B2',cantidades)
+        grafico.add_series({
+                'categories':[hoja.name,1,0,len(lotes),0],
+                'values': [hoja.name,1,1,len(cantidades),1]
+        })
+        grafico.set_x_axis({
+            'name':'Lotes',
+            'name-font':{'size':16,'bold':True},
+            'num_font':{'italic':True},
+        })
+        hoja.insert_chart('E3', grafico)
+
+    def generarExcelVentas(self):
+        """
+            Crea el documento Excel correspondiente a las ventas realizadas en
+            un periodo de tiempo dado
+        :return None :
+        """
+        ventas={}
+        for factura in (FacturaModel.buscarTodos("numero",self.sesion).all()):
+            if (factura.fecha_emision in ventas):
+                ventas[factura.fecha_emision]+=1
+            else:
+                ventas[factura.fecha_emision]=1
+        for remito in (RemitoModel.buscarTodos("numero",self.sesion).all()):
+            if (remito.fecha_emision in ventas):
+                ventas[remito.fecha_emision]+=1
+            else:
+                ventas[remito.fecha_emision]=1
+
+        documento=xlsxwriter.Workbook('Excel/Ventas.xlsx')
+        hoja=documento.add_worksheet('Ventas')
+        bold = documento.add_format({'bold': 1,})
+        date_format = documento.add_format({'num_format': 'yyyy/mm/dd'})
+        bold.set_align('center')
+        hoja.set_column(0,0,45)
+        hoja.set_column(1,1,15)
+        ##Añado un grafico al documento
+        grafico = documento.add_chart({'type':'line'})
+        fechas=list(ventas.keys())
+        cantidades=list(ventas.values())
+        hoja.write('A1','Fecha',bold)
+        hoja.write('B1','Cantidad Vtas',bold)
+        hoja.write_column('A2',fechas,date_format)
+        hoja.write_column('B2',cantidades)
+        grafico.add_series({
+                'categories':[hoja.name,1,0,len(fechas),0],
+                'values': [hoja.name,1,1,len(cantidades),1]
+        })
+        grafico.set_x_axis({
+            'name':'Fechas',
+            'name-font':{'size':16,'bold':True},
+            'num_font':{'italic':True},
+        })
+        hoja.insert_chart('E3', grafico)
+        documento.close()
+
+        QtGui.QMessageBox.information(self, "Listado" , "El listado ha sido generado con exito")
+
+    def generarExcelClientes(self):
+        """
+            Genera el documento Excel correspondiente a
+            los clientes de la farmacia
+        :return: None
+        """
+        datosClientes=[]
+        for cliente in (ClienteModel.buscarTodos("dni",self.sesion).all()):
+            datosUnCliente=[]
+            datosUnCliente.append(cliente.dni)
+            datosUnCliente.append(cliente.nombre)
+            datosUnCliente.append(cliente.apellido)
+            datosUnCliente.append(cliente.direccion)
+            datosUnCliente.append(cliente.telefono)
+            datosClientes.append(datosUnCliente)
+
+
+
+
+        documento=xlsxwriter.Workbook('Excel/Clientes.xlsx')
+        hoja=documento.add_worksheet('Clientes')
+        bold = documento.add_format({'bold': 1,})
+        bold.set_align('center')
+        hoja.write('A1','DNI',bold)
+        hoja.write('B1','Nombre',bold)
+        hoja.write('C1','Apellido',bold)
+        hoja.write('D1','Direccion',bold)
+        hoja.write('E1','Telefono',bold)
+        i=2
+        for cliente in datosClientes:
+            row='A%(numero)d' % {"numero":i}
+            hoja.write_row(row,cliente)
+            i+=1
+
+        documento.close()
+
+        QtGui.QMessageBox.information(self, "Listado" , "El listado ha sido generado con exito")
